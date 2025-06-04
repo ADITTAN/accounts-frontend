@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an axios instance
 const instance = axios.create({
-  baseURL: 'https://accounts-frontend-hcpzp2dyn-adittans-projects.vercel.app/', // Your backend base URL
+  baseURL: 'https://sparkling-alignment-production-1503.up.railway.app/', // Your backend base URL
   headers: {
     'Content-Type': 'application/json',
   },
