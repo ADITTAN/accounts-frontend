@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [totalExpenses, setTotalExpenses] = useState(0);
 
   const COLORS = ['#4CAF50', '#F44336'];
-  const API_URL = 'https://accounts-backend-production.up.railway.app'; // Set static backend URL for Vercel
+  const API_URL = 'https://sparkling-alignment-production-1503.up.railway.app/'; // Set static backend URL for Vercel
   
   useEffect(() => {
     axios.get(`${API_URL}/expenses`)
