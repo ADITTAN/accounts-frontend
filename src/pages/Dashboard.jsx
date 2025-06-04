@@ -17,6 +17,23 @@ const Dashboard = () => {
 
   const COLORS = ['#4CAF50', '#F44336'];
 
+
+useEffect(() => {
+  const API_URL = process.env.REACT_APP_API_URL;
+
+  axios.get(`${API_URL}/expenses`)
+    .then(res => console.log(res.data))
+    .catch(err => console.error(err));
+
+  fetchTransactions();
+
+  const interval = setInterval(() => {
+    fetchTransactions();
+  }, 30000); // every 30s
+
+  return () => clearInterval(interval);
+}, []);
+  
   useEffect(() => {
     fetchTransactions();
 
@@ -27,12 +44,7 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
-const API_URL = process.env.REACT_APP_API_URL;
-  
 
-axios.get(`${API_URL}/expenses`)
-  .then(res => console.log(res.data))
-  .catch(err => console.error(err));
 
   const fetchTransactions = async () => {
     try {
