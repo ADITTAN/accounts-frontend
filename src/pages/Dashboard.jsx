@@ -27,7 +27,8 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = "https://accounts-backend-production.up.railway.app";
+  //process.env.REACT_APP_API_URL
 
 axios.get(`${API_URL}/expenses`)
   .then(res => console.log(res.data))
