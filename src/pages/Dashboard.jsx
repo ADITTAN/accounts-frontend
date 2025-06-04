@@ -27,20 +27,11 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 
-    fetch(`${API_URL}/expenses`)
-      .then((res) => res.json())
-      .then((data) => {
-        setExpenses(data);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.error('Failed to fetch expenses:', err);
-      });
-  }, []);
-
+axios.get(`${API_URL}/expenses`)
+  .then(res => console.log(res.data))
+  .catch(err => console.error(err));
 
   const fetchTransactions = async () => {
     try {
@@ -85,17 +76,6 @@ const Dashboard = () => {
   };
 
   return (
-
-    <div>
-      <h2>All Expenses</h2>
-      <ul>
-        {expenses.map((exp) => (
-          <li key={exp._id}>
-            {exp.description} - ${exp.amount}
-          </li>
-        ))}
-      </ul>
-    </div>
     
     <div style={{ padding: '40px', fontFamily: 'Arial, sans-serif' }}>
       <h1 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '24px' }}>
