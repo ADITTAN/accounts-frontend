@@ -29,7 +29,7 @@ const Dashboard = () => {
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-axios.get(`${API_URL}/expenses`)
+axios.get(`${REACT_APP_API_URL}/expenses`)
   .then(res => console.log(res.data))
   .catch(err => console.error(err));
 
