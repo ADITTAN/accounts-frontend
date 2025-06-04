@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   const COLORS = ['#4CAF50', '#F44336'];
   const API_URL = 'https://accounts-backend-production.up.railway.app'; // Set static backend URL for Vercel
-
+  
   useEffect(() => {
     axios.get(`${API_URL}/expenses`)
       .then(res => console.log(res.data))
