@@ -1,5 +1,4 @@
 // pages/Dashboard.jsx
-// pages/Dashboard.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../utils/axios';
@@ -13,28 +12,15 @@ const Dashboard = () => {
   const [pieData, setPieData] = useState([]);
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
-  const [expenses, setExpenses] = useState([]);
 
   const COLORS = ['#4CAF50', '#F44336'];
+  const API_URL = 'https://accounts-backend-production.up.railway.app'; // Set static backend URL for Vercel
 
-
-useEffect(() => {
-  const API_URL = process.env.REACT_APP_API_URL;
-
-  axios.get(`${API_URL}/expenses`)
-    .then(res => console.log(res.data))
-    .catch(err => console.error(err));
-
-  fetchTransactions();
-
-  const interval = setInterval(() => {
-    fetchTransactions();
-  }, 30000); // every 30s
-
-  return () => clearInterval(interval);
-}, []);
-  
   useEffect(() => {
+    axios.get(`${API_URL}/expenses`)
+      .then(res => console.log(res.data))
+      .catch(err => console.error(err));
+
     fetchTransactions();
 
     const interval = setInterval(() => {
@@ -44,11 +30,9 @@ useEffect(() => {
     return () => clearInterval(interval);
   }, []);
 
-
-
   const fetchTransactions = async () => {
     try {
-      const res = await axios.get('/transactions');
+      const res = await axios.get(`${API_URL}/transactions`);
       setTransactions(res.data);
       processTransactionData(res.data);
     } catch (error) {
@@ -89,7 +73,6 @@ useEffect(() => {
   };
 
   return (
-    
     <div style={{ padding: '40px', fontFamily: 'Arial, sans-serif' }}>
       <h1 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '24px' }}>
         Dashboard Overview
@@ -106,13 +89,12 @@ useEffect(() => {
           <p style={{ fontSize: '24px', color: '#d32f2f' }}>${totalExpenses.toLocaleString()}</p>
         </div>
         <div style={cardStyle('#e3f2fd')}>
-            <h2>Profit</h2>
-            <p style={{ fontSize: '24px', color: '#1976d2' }}>
-             ${(totalRevenue - totalExpenses).toLocaleString()}
+          <h2>Profit</h2>
+          <p style={{ fontSize: '24px', color: '#1976d2' }}>
+            ${(totalRevenue - totalExpenses).toLocaleString()}
           </p>
-         </div>
         </div>
-
+      </div>
 
       {/* Action Cards with Links */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '40px' }}>
@@ -198,3 +180,4 @@ const actionCardStyle = {
 };
 
 export default Dashboard;
+
