@@ -13,6 +13,7 @@ const Dashboard = () => {
   const [pieData, setPieData] = useState([]);
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
+  const [expenses, setExpenses] = useState([]);
 
   const COLORS = ['#4CAF50', '#F44336'];
 
@@ -25,6 +26,21 @@ const Dashboard = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const API_URL = process.env.REACT_APP_API_URL;
+
+    fetch(`${API_URL}/expenses`)
+      .then((res) => res.json())
+      .then((data) => {
+        setExpenses(data);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error('Failed to fetch expenses:', err);
+      });
+  }, []);
+
 
   const fetchTransactions = async () => {
     try {
@@ -69,6 +85,18 @@ const Dashboard = () => {
   };
 
   return (
+
+    <div>
+      <h2>All Expenses</h2>
+      <ul>
+        {expenses.map((exp) => (
+          <li key={exp._id}>
+            {exp.description} - ${exp.amount}
+          </li>
+        ))}
+      </ul>
+    </div>
+    
     <div style={{ padding: '40px', fontFamily: 'Arial, sans-serif' }}>
       <h1 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '24px' }}>
         Dashboard Overview
