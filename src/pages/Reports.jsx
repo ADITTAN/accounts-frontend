@@ -17,7 +17,7 @@ const GenerateReport = () => {
 
     setLoading(true);
     try {
-      const res = await axios.get('/reports/custom', {
+      const res = await axios.get('/reports', {
         params: {
           type: reportType,
           from: dateRange.from,
