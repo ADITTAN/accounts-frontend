@@ -1,4 +1,5 @@
 // pages/Dashboard.jsx
+// pages/Dashboard.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../utils/axios';
@@ -14,13 +15,8 @@ const Dashboard = () => {
   const [totalExpenses, setTotalExpenses] = useState(0);
 
   const COLORS = ['#4CAF50', '#F44336'];
-  const API_URL = 'https://sparkling-alignment-production-1503.up.railway.app/'; // Set static backend URL for Vercel
-  
-  useEffect(() => {
-    axios.get(`${API_URL}/expenses`)
-      .then(res => console.log(res.data))
-      .catch(err => console.error(err));
 
+  useEffect(() => {
     fetchTransactions();
 
     const interval = setInterval(() => {
@@ -32,7 +28,7 @@ const Dashboard = () => {
 
   const fetchTransactions = async () => {
     try {
-      const res = await axios.get(`${API_URL}/transactions`);
+      const res = await axios.get('/transactions');
       setTransactions(res.data);
       processTransactionData(res.data);
     } catch (error) {
@@ -89,12 +85,13 @@ const Dashboard = () => {
           <p style={{ fontSize: '24px', color: '#d32f2f' }}>${totalExpenses.toLocaleString()}</p>
         </div>
         <div style={cardStyle('#e3f2fd')}>
-          <h2>Profit</h2>
-          <p style={{ fontSize: '24px', color: '#1976d2' }}>
-            ${(totalRevenue - totalExpenses).toLocaleString()}
+            <h2>Profit</h2>
+            <p style={{ fontSize: '24px', color: '#1976d2' }}>
+             ${(totalRevenue - totalExpenses).toLocaleString()}
           </p>
+         </div>
         </div>
-      </div>
+
 
       {/* Action Cards with Links */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '40px' }}>
@@ -180,4 +177,3 @@ const actionCardStyle = {
 };
 
 export default Dashboard;
-
